@@ -12,7 +12,12 @@
           "package_name": "student.projects.innerspace"
         }
       },
-      "oauth_client": [],
+      "oauth_client": [
+        {
+          "client_id": "41764673225-r9ffpgee76aqv9vmvau1bkot35jjt1p6.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
       "api_key": [
         {
           "current_key": "AIzaSyDZDOHPR9hsgJ3yP2bg4W1DujDwMefQhFE"
@@ -20,7 +25,12 @@
       ],
       "services": {
         "appinvite_service": {
-          "other_platform_oauth_client": []
+          "other_platform_oauth_client": [
+            {
+              "client_id": "41764673225-r9ffpgee76aqv9vmvau1bkot35jjt1p6.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
         }
       }
     }
