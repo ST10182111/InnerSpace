@@ -42,7 +42,7 @@ class EntryFragment : Fragment() {
         binding.contentEditText.typeface = Typeface.create(fontStyle, Typeface.NORMAL)
 
         // 🎨 Apply background color based on theme
-        binding.entryLayout.setBackgroundColor(Color.parseColor(bgColor))
+        binding.root.setBackgroundColor(Color.parseColor(bgColor))
 
         // 💾 Save journal entry to RoomDB
         binding.saveButton.setOnClickListener {
@@ -57,7 +57,7 @@ class EntryFragment : Fragment() {
             val note = Note(
                 title = title,
                 content = content,
-                imageUri = selectedImageUri?.toString() // ✅ Save image URI if available
+                imageUri = selectedImageUri?.toString()
             )
 
             lifecycleScope.launch {
@@ -76,19 +76,17 @@ class EntryFragment : Fragment() {
             startActivityForResult(intent, PICK_IMAGE_REQUEST)
         }
 
+        // 🗑️ Remove image
+        binding.removeImageButton.setOnClickListener {
+            selectedImageUri = null
+            binding.imagePreview.setImageDrawable(null)
+            Toast.makeText(requireContext(), "Image removed", Toast.LENGTH_SHORT).show()
+        }
+
         return binding.root
     }
 
     // 📸 Handle image selection and preview
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
         super.onActivityResult(requestCode, resultCode, data)
-        if (requestCode == PICK_IMAGE_REQUEST && resultCode == Activity.RESULT_OK && data != null) {
-            selectedImageUri = data.data
-            val inputStream: InputStream? = selectedImageUri?.let {
-                requireContext().contentResolver.openInputStream(it)
-            }
-            val bitmap = BitmapFactory.decodeStream(inputStream)
-            binding.imagePreview.setImageBitmap(bitmap)
-        }
-    }
-}
+        if (requestCode == PICK_IMAGE_REQUEST && resultCode == Activity.RESULT_OK && data
